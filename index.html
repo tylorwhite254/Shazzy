@@ -1,380 +1,485 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Joan</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Marck+Script&family=Manrope:wght@300;400;600&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Shazzy</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Marck+Script&family=Manrope:wght@300;400;600&display=swap');
 
-  :root{
-    --void: #0a0417;
-    --void-2: #120826;
-    --neon-purple: #b537f2;
-    --neon-pink: #ff3ec8;
-    --lavender: #e6d9ff;
-    --lavender-dim: #9c8bc4;
-    --glow: 0 0 20px rgba(181,55,242,0.55);
-  }
+    :root {
+      --void: #0a0417;
+      --void-2: #120826;
+      --neon-purple: #b537f2;
+      --neon-pink: #ff3ec8;
+      --lavender: #e6d9ff;
+      --lavender-dim: #9c8bc4;
+      --glow: 0 0 20px rgba(181, 55, 242, 0.55);
+    }
 
-  *{margin:0;padding:0;box-sizing:border-box;}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  html,body{
-    background:var(--void);
-    color:var(--lavender);
-    font-family:'Manrope', sans-serif;
-    overflow-x:hidden;
-    min-height:100%;
-  }
+    html,
+    body {
+      background: var(--void);
+      color: var(--lavender);
+      font-family: 'Manrope', sans-serif;
+      overflow-x: hidden;
+      min-height: 100%;
+    }
 
-  #bg-photo{
-    position:fixed;
-    inset:0;
-    z-index:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    opacity:0.55;
-  }
+    #bg-photo {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.7;
+    }
 
-  #bg-overlay{
-    position:fixed;
-    inset:0;
-    z-index:1;
-    background:
-      radial-gradient(ellipse at 20% 10%, rgba(181,55,242,0.35), transparent 55%),
-      radial-gradient(ellipse at 80% 85%, rgba(255,62,200,0.30), transparent 55%),
-      linear-gradient(180deg, rgba(10,4,23,0.55), rgba(10,4,23,0.8));
-  }
+    #bg-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      background:
+        radial-gradient(ellipse at 20% 10%, rgba(181, 55, 242, 0.30), transparent 55%),
+        radial-gradient(ellipse at 80% 85%, rgba(255, 62, 200, 0.25), transparent 55%),
+        linear-gradient(180deg, rgba(10, 4, 23, 0.50), rgba(10, 4, 23, 0.75));
+    }
 
-  .watermark{
-    position:fixed;
-    inset:0;
-    z-index:2;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    pointer-events:none;
-    overflow:hidden;
-  }
+    #hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+      overflow: hidden;
+    }
 
-  .watermark span{
-    font-family:'Marck Script', cursive;
-    font-size:clamp(3.5rem, 16vw, 11rem);
-    color:rgba(181,55,242,0.07);
-    white-space:nowrap;
-    text-shadow:0 0 40px rgba(255,62,200,0.08);
-    transform:rotate(-8deg);
-    letter-spacing:0.02em;
-  }
+    .watermark {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      overflow: hidden;
+    }
 
-  #hearts{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:3;
-    overflow:hidden;
-  }
+    .watermark span {
+      font-family: 'Marck Script', cursive;
+      font-size: clamp(3.5rem, 16vw, 11rem);
+      color: rgba(181, 55, 242, 0.07);
+      white-space: nowrap;
+      text-shadow: 0 0 40px rgba(255, 62, 200, 0.08);
+      transform: rotate(-8deg);
+      letter-spacing: 0.02em;
+    }
 
-  .heart{
-    position:absolute;
-    top:-40px;
-    color:var(--neon-pink);
-    opacity:0.85;
-    filter:drop-shadow(0 0 6px rgba(255,62,200,0.7));
-    animation-name:fall;
-    animation-timing-function:linear;
-    animation-iteration-count:infinite;
-    user-select:none;
-    white-space:nowrap;
-  }
+    .heart {
+      position: absolute;
+      top: -40px;
+      color: var(--neon-pink);
+      opacity: 0.85;
+      filter: drop-shadow(0 0 6px rgba(255, 62, 200, 0.7));
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      user-select: none;
+    }
 
-  .heart.falling-name{
-    font-family:'Marck Script', cursive;
-    color:#fff;
-    filter:drop-shadow(0 0 8px rgba(181,55,242,0.85));
-  }
+    @keyframes fall {
+      0% {
+        transform: translateY(-5vh) translateX(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(105vh) translateX(var(--drift, 20px)) rotate(360deg);
+      }
+    }
 
-  @keyframes fall{
-    0%{ transform:translateY(-5vh) translateX(0) rotate(0deg); }
-    100%{ transform:translateY(105vh) translateX(var(--drift,20px)) rotate(360deg); }
-  }
+    main {
+      position: relative;
+      z-index: 4;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 8vh 6vw 12vh;
+    }
 
-  main{
-    position:relative;
-    z-index:4;
-    max-width:760px;
-    margin:0 auto;
-    padding:8vh 6vw 12vh;
-  }
+    .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--neon-pink);
+      text-align: center;
+      margin-bottom: 1.4rem;
+      opacity: 0.85;
+    }
 
-  .eyebrow{
-    font-size:0.72rem;
-    letter-spacing:0.35em;
-    text-transform:uppercase;
-    color:var(--neon-pink);
-    text-align:center;
-    margin-bottom:1.4rem;
-    opacity:0.85;
-  }
+    h1.name {
+      font-family: 'Marck Script', cursive;
+      font-size: clamp(3.2rem, 11vw, 6.5rem);
+      text-align: center;
+      line-height: 1;
+      color: #fff;
+      text-shadow:
+        0 0 12px rgba(181, 55, 242, 0.9),
+        0 0 28px rgba(181, 55, 242, 0.6),
+        0 0 55px rgba(255, 62, 200, 0.4);
+      margin-bottom: 0.6rem;
+      animation: glowPulse 4s ease-in-out infinite;
+    }
 
-  h1.name{
-    font-family:'Marck Script', cursive;
-    font-size:clamp(3.2rem, 11vw, 6.5rem);
-    text-align:center;
-    line-height:1;
-    color:#fff;
-    text-shadow:
-      0 0 12px rgba(181,55,242,0.9),
-      0 0 28px rgba(181,55,242,0.6),
-      0 0 55px rgba(255,62,200,0.4);
-    margin-bottom:0.6rem;
-    animation:glowPulse 4s ease-in-out infinite;
-  }
+    @keyframes glowPulse {
+      0%,
+      100% {
+        filter: brightness(1);
+      }
+      50% {
+        filter: brightness(1.18);
+      }
+    }
 
-  @keyframes glowPulse{
-    0%,100%{ filter:brightness(1); }
-    50%{ filter:brightness(1.18); }
-  }
+    .subtitle {
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+      color: var(--lavender-dim);
+      margin-bottom: 5rem;
+    }
 
-  .subtitle{
-    text-align:center;
-    font-family:'Cormorant Garamond', serif;
-    font-style:italic;
-    font-size:clamp(1.05rem, 2.4vw, 1.35rem);
-    color:var(--lavender-dim);
-    margin-bottom:5rem;
-  }
+    .letter {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+      border: 1px solid rgba(181, 55, 242, 0.35);
+      border-radius: 18px;
+      padding: clamp(2rem, 5vw, 3.4rem);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 40px rgba(181, 55, 242, 0.12), inset 0 0 60px rgba(181, 55, 242, 0.04);
+    }
 
-  .letter{
-    background:linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.015));
-    border:1px solid rgba(181,55,242,0.35);
-    border-radius:18px;
-    padding:clamp(2rem, 5vw, 3.4rem);
-    backdrop-filter:blur(6px);
-    box-shadow:0 0 40px rgba(181,55,242,0.12), inset 0 0 60px rgba(181,55,242,0.04);
-  }
+    .letter p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.15rem, 2.6vw, 1.4rem);
+      line-height: 1.85;
+      color: var(--lavender);
+      margin-bottom: 1.5rem;
+    }
 
-  .letter p{
-    font-family:'Cormorant Garamond', serif;
-    font-size:clamp(1.15rem, 2.6vw, 1.4rem);
-    line-height:1.85;
-    color:var(--lavender);
-    margin-bottom:1.5rem;
-  }
+    .letter p:first-of-type::first-letter {
+      font-size: 2.6rem;
+      color: var(--neon-pink);
+      font-weight: 600;
+      padding-right: 2px;
+    }
 
-  .letter p:first-of-type::first-letter{
-    font-size:2.6rem;
-    color:var(--neon-pink);
-    font-weight:600;
-    padding-right:2px;
-  }
+    .signature {
+      margin-top: 2.5rem;
+      font-family: 'Marck Script', cursive;
+      font-size: 1.9rem;
+      color: #fff;
+      text-shadow: 0 0 14px rgba(255, 62, 200, 0.6);
+    }
 
-  .signature{
-    margin-top:2.5rem;
-    font-family:'Marck Script', cursive;
-    font-size:1.9rem;
-    color:#fff;
-    text-shadow:0 0 14px rgba(255,62,200,0.6);
-  }
+    .signature .nickname {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.85rem;
+      color: var(--lavender-dim);
+      display: block;
+      margin-top: 0.4rem;
+      text-shadow: none;
+      letter-spacing: 0.02em;
+    }
 
-  .signature .nickname{
-    font-family:'Manrope', sans-serif;
-    font-size:0.85rem;
-    color:var(--lavender-dim);
-    display:block;
-    margin-top:0.4rem;
-    text-shadow:none;
-    letter-spacing:0.02em;
-  }
+    .divider {
+      width: 80px;
+      height: 1px;
+      margin: 4rem auto;
+      background: linear-gradient(90deg, transparent, var(--neon-purple), transparent);
+      box-shadow: var(--glow);
+    }
 
-  .divider{
-    width:80px;
-    height:1px;
-    margin:4rem auto;
-    background:linear-gradient(90deg, transparent, var(--neon-purple), transparent);
-    box-shadow:var(--glow);
-  }
+    .promise-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 4rem;
+    }
 
-  .promise-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
-    gap:1.2rem;
-    margin-bottom:4rem;
-  }
+    .promise {
+      text-align: center;
+      padding: 1.6rem 1rem;
+      border: 1px solid rgba(230, 217, 255, 0.12);
+      border-radius: 14px;
+      background: rgba(181, 55, 242, 0.05);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
 
-  .promise{
-    text-align:center;
-    padding:1.6rem 1rem;
-    border:1px solid rgba(230,217,255,0.12);
-    border-radius:14px;
-    background:rgba(181,55,242,0.05);
-    transition:transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  .promise:hover{
-    transform:translateY(-4px);
-    border-color:rgba(255,62,200,0.5);
-    box-shadow:0 0 22px rgba(255,62,200,0.25);
-  }
-  .promise .mark{
-    font-size:1.6rem;
-    color:var(--neon-pink);
-    margin-bottom:0.6rem;
-    display:block;
-  }
-  .promise p{
-    font-size:0.92rem;
-    color:var(--lavender-dim);
-    line-height:1.5;
-  }
+    .promise:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 62, 200, 0.5);
+      box-shadow: 0 0 22px rgba(255, 62, 200, 0.25);
+    }
 
-  footer{
-    text-align:center;
-    padding-bottom:3rem;
-  }
+    .promise .mark {
+      font-size: 1.6rem;
+      color: var(--neon-pink);
+      margin-bottom: 0.6rem;
+      display: block;
+    }
 
-  footer .line{
-    font-family:'Cormorant Garamond', serif;
-    font-style:italic;
-    font-size:1.15rem;
-    color:var(--lavender-dim);
-    margin-bottom:0.4rem;
-  }
+    .promise p {
+      font-size: 0.92rem;
+      color: var(--lavender-dim);
+      line-height: 1.5;
+    }
 
-  #music-toggle{
-    position:fixed;
-    bottom:1.6rem;
-    right:1.6rem;
-    z-index:5;
-    background:rgba(181,55,242,0.15);
-    border:1px solid rgba(255,62,200,0.5);
-    color:var(--lavender);
-    font-family:'Manrope', sans-serif;
-    font-size:0.8rem;
-    letter-spacing:0.04em;
-    padding:0.65rem 1.1rem;
-    border-radius:999px;
-    cursor:pointer;
-    backdrop-filter:blur(6px);
-    box-shadow:0 0 18px rgba(255,62,200,0.25);
-    transition:transform 0.25s ease, box-shadow 0.25s ease;
-  }
-  #music-toggle:hover{
-    transform:translateY(-2px);
-    box-shadow:0 0 26px rgba(255,62,200,0.45);
-  }
-  #music-toggle:focus-visible{
-    outline:2px solid var(--neon-pink);
-    outline-offset:3px;
-  }
+    footer {
+      text-align: center;
+      padding-bottom: 3rem;
+    }
 
-  @media (prefers-reduced-motion: reduce){
-    .heart, h1.name{ animation:none !important; }
-  }
-</style>
+    footer .line {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--lavender-dim);
+      margin-bottom: 0.4rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .heart,
+      h1.name {
+        animation: none !important;
+      }
+    }
+
+    #music-toggle {
+      position: fixed;
+      bottom: 1.6rem;
+      right: 1.6rem;
+      z-index: 5;
+      background: rgba(181, 55, 242, 0.15);
+      border: 1px solid rgba(255, 62, 200, 0.5);
+      color: var(--lavender);
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      padding: 0.65rem 1.1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 18px rgba(255, 62, 200, 0.25);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    #music-toggle:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 26px rgba(255, 62, 200, 0.45);
+    }
+
+    #music-toggle:focus-visible {
+      outline: 2px solid var(--neon-pink);
+      outline-offset: 3px;
+    }
+
+    /* Audio notification for users */
+    #audio-notice {
+      position: fixed;
+      bottom: 5rem;
+      right: 1.6rem;
+      z-index: 5;
+      background: rgba(10, 4, 23, 0.85);
+      border: 1px solid rgba(255, 62, 200, 0.3);
+      color: var(--lavender-dim);
+      font-size: 0.7rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+      max-width: 200px;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    #audio-notice.visible {
+      opacity: 1;
+    }
+  </style>
 </head>
 <body>
 
-<video id="bg-photo" autoplay muted loop playsinline src="https://files.catbox.moe/mabvs6.mp4"></video>
-<div id="bg-overlay"></div>
-<div class="watermark"><span>never be the same</span></div>
-<div id="hearts"></div>
+  <!-- Updated background image -->
+  <img id="bg-photo" src="https://www.image2url.com/r2/default/images/1783160380357-53347884-c885-4f87-b48c-db612a8936eb.jpg" alt="background">
+  <div id="bg-overlay"></div>
+  <div class="watermark"><span>never be the same</span></div>
+  <div id="hearts"></div>
 
-<audio id="bg-audio" src="https://files.catbox.moe/mr11u1.m4a" loop></audio>
-<button id="music-toggle" aria-label="Play music">♪ play song</button>
+  <audio id="bg-audio" src="https://files.catbox.moe/mr11u1.m4a" loop preload="auto"></audio>
+  <button id="music-toggle" aria-label="Play music">♪ play song</button>
+  <div id="audio-notice">Tap anywhere to start the music ✦</div>
 
-<main>
-  <div class="eyebrow">a small apology, sent quietly</div>
-  <h1 class="name">Joan Mumo</h1>
-  <p class="subtitle">for the friend who never stopped mattering to me</p>
+  <main>
+    <div class="eyebrow">a small apology, sent quietly</div>
+    <!-- Updated name to Shazzy Wanjiru -->
+    <h1 class="name">Shazzy Wanjiru</h1>
+    <p class="subtitle">for the friend who never stopped mattering to me</p>
 
-  <section class="letter">
-    <p>I know it's been a while. Longer than it should have been. Life got loud, days folded into each other, and somewhere in that noise I let the space between us grow quiet — not because I stopped caring, but because I let everything else get louder than you deserved.</p>
-    <p>You've always been the kind of friend who shows up fully, who checks in without being asked, who makes the ordinary feel a little lighter. I don't say this enough, so let me say it plainly now: I'm sorry for the silence, and I'm grateful it hasn't changed how much I care about you.</p>
-    <p>Nothing about how I feel toward you has ever gone away. Not for a single day. I just went quiet — and you deserved better than that.</p>
-    <div class="signature">— always your friend, Tylor <span class="nickname">(aka "Madara Uchiha", when you're feeling dramatic)</span></div>
-  </section>
+    <section class="letter">
+      <p>I know it's been a while. Longer than it should have been. Life got loud, days folded into each other, and somewhere in that noise I let the space between us grow quiet — not because I stopped caring, but because I let everything else get louder than you deserved.</p>
+      <p>You've always been the kind of friend who shows up fully, who checks in without being asked, who makes the ordinary feel a little lighter. I don't say this enough, so let me say it plainly now: I'm sorry for the silence, and I'm grateful it hasn't changed how much I care about you.</p>
+      <p>Nothing about how I feel toward you has ever gone away. Not for a single day. I just went quiet — and you deserved better than that.</p>
+      <div class="signature">— always your friend, Tylor <span class="nickname">(aka "Madara Uchiha", when you're feeling dramatic)</span></div>
+    </section>
 
-  <div class="divider"></div>
+    <div class="divider"></div>
 
-  <div class="promise-grid">
-    <div class="promise">
-      <span class="mark">✦</span>
-      <p>I'm here now, and I'm not disappearing again.</p>
+    <div class="promise-grid">
+      <div class="promise">
+        <span class="mark">✦</span>
+        <p>I'm here now, and I'm not disappearing again.</p>
+      </div>
+      <div class="promise">
+        <span class="mark">✦</span>
+        <p>You can tell me anything — the silence was mine to fix, not yours.</p>
+      </div>
+      <div class="promise">
+        <span class="mark">✦</span>
+        <p>This page exists because you're worth the effort it took to make it.</p>
+      </div>
     </div>
-    <div class="promise">
-      <span class="mark">✦</span>
-      <p>You can tell me anything — the silence was mine to fix, not yours.</p>
-    </div>
-    <div class="promise">
-      <span class="mark">✦</span>
-      <p>This page exists because you're worth the effort it took to make it.</p>
-    </div>
-  </div>
 
-  <footer>
-    <p class="line">Thank you for being patient with me.</p>
-    <p class="line">I still care about you, Joan — more than this page can hold.</p>
-  </footer>
-</main>
+    <footer>
+      <p class="line">Thank you for being patient with me.</p>
+      <!-- Updated name in footer as well -->
+      <p class="line">I still care about you, Shazzy — more than this page can hold.</p>
+    </footer>
+  </main>
 
-<script>
-  const container = document.getElementById('hearts');
-  const symbols = ['❤','💜','♥','Joan Mumo'];
-  const total = 40;
+  <script>
+    // Floating hearts
+    const container = document.getElementById('hearts');
+    const symbols = ['❤', '💜', '♥'];
+    const total = 34;
 
-  for(let i=0;i<total;i++){
-    const h = document.createElement('div');
-    h.className = 'heart';
-    const symbol = symbols[Math.floor(Math.random()*symbols.length)];
-    h.textContent = symbol;
-    const isName = symbol === 'Joan Mumo';
-    if(isName) h.classList.add('falling-name');
-    const size = isName ? (12 + Math.random()*8) : (10 + Math.random()*20);
-    h.style.left = Math.random()*100 + 'vw';
-    h.style.fontSize = size + 'px';
-    h.style.setProperty('--drift', (Math.random()*80 - 40) + 'px');
-    const duration = 8 + Math.random()*10;
-    h.style.animationDuration = duration + 's';
-    h.style.animationDelay = (Math.random()*duration) + 's';
-    h.style.opacity = 0.4 + Math.random()*0.5;
-    container.appendChild(h);
-  }
-
-  const audio = document.getElementById('bg-audio');
-  const toggle = document.getElementById('music-toggle');
-  let playing = false;
-
-  function startAudio(){
-    if(playing) return;
-    audio.play().then(() => {
-      playing = true;
-      toggle.textContent = '♪ pause song';
-    }).catch(() => { /* browser blocked it -- wait for a real interaction */ });
-  }
-
-  // Try immediately on load -- works if her browser allows it.
-  startAudio();
-  window.addEventListener('load', startAudio);
-
-  // Browsers commonly block audio with sound from starting before any
-  // interaction with the page, so as a fallback we also start it on the
-  // first touch, click, key press, or scroll anywhere on the page.
-  ['click','touchstart','keydown','scroll'].forEach(evt => {
-    document.addEventListener(evt, startAudio, { once:true, passive:true });
-  });
-
-  toggle.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if(!playing){
-      startAudio();
-    } else {
-      audio.pause();
-      playing = false;
-      toggle.textContent = '♪ play song';
+    for (let i = 0; i < total; i++) {
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      const size = 10 + Math.random() * 20;
+      h.style.left = Math.random() * 100 + 'vw';
+      h.style.fontSize = size + 'px';
+      h.style.setProperty('--drift', (Math.random() * 80 - 40) + 'px');
+      const duration = 8 + Math.random() * 10;
+      h.style.animationDuration = duration + 's';
+      h.style.animationDelay = (Math.random() * duration) + 's';
+      h.style.opacity = 0.4 + Math.random() * 0.5;
+      container.appendChild(h);
     }
-  });
-</script>
+
+    // Audio controls with robust autoplay
+    const audio = document.getElementById('bg-audio');
+    const toggle = document.getElementById('music-toggle');
+    const notice = document.getElementById('audio-notice');
+    let playing = false;
+    let audioStarted = false;
+
+    function startAudio() {
+      if (audioStarted) return;
+
+      audio.play()
+        .then(() => {
+          playing = true;
+          audioStarted = true;
+          toggle.textContent = '♪ pause song';
+          notice.classList.remove('visible');
+          console.log('Audio playing successfully');
+        })
+        .catch((err) => {
+          console.log('Autoplay blocked, waiting for user interaction:', err);
+          // Show notice to user
+          notice.classList.add('visible');
+          // Hide notice after 6 seconds
+          setTimeout(() => {
+            notice.classList.remove('visible');
+          }, 6000);
+        });
+    }
+
+    // Try to start audio immediately (may be blocked)
+    startAudio();
+
+    // Also try on page load
+    window.addEventListener('load', startAudio);
+
+    // Try on ANY user interaction (most reliable for modern browsers)
+    const userEvents = ['click', 'touchstart', 'keydown', 'scroll', 'mousemove'];
+    let userInteracted = false;
+
+    userEvents.forEach(evt => {
+      document.addEventListener(evt, function onInteraction() {
+        if (!audioStarted) {
+          startAudio();
+        }
+        // Remove the notice on any interaction
+        notice.classList.remove('visible');
+        // Remove this listener after first interaction to be clean
+        if (!userInteracted) {
+          userInteracted = true;
+          userEvents.forEach(e => {
+            document.removeEventListener(e, onInteraction);
+          });
+        }
+      }, { passive: true });
+    });
+
+    // Toggle button
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+
+      if (!audioStarted) {
+        startAudio();
+        return;
+      }
+
+      if (playing) {
+        audio.pause();
+        playing = false;
+        toggle.textContent = '♪ play song';
+      } else {
+        audio.play()
+          .then(() => {
+            playing = true;
+            toggle.textContent = '♪ pause song';
+          })
+          .catch((err) => {
+            console.log('Playback failed:', err);
+          });
+      }
+    });
+
+    // Handle audio ending (though it loops)
+    audio.addEventListener('ended', () => {
+      // If it somehow ends and we're still playing, restart
+      if (playing) {
+        audio.play().catch(() => {});
+      }
+    });
+
+    // Log if audio fails to load
+    audio.addEventListener('error', (e) => {
+      console.error('Audio loading error:', e);
+      toggle.textContent = '♪ audio unavailable';
+    });
+
+    console.log('Page ready — audio will start on first interaction');
+  </script>
 
 </body>
 </html>
